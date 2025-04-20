@@ -8,7 +8,7 @@ type WeatherRowProps = ForecastItem;
 
 const WeatherRow: React.FC<WeatherRowProps> = ({ dt, main, weather }) => {
   return (
-    <div className="flex items-center justify-between w-full py-4 [&:last-child]:pb-0 font-medium">
+    <div className="flex items-center gap-2 justify-between w-full py-4 [&:last-child]:pb-0 font-medium">
       <div className="flex items-center justify-between gap-4 text-xs sm:text-sm">
         <div className="text-gray-800">
           {formatSecondTimestamp(dt, TIME_FORMAT)}

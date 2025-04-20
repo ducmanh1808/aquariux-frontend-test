@@ -4,6 +4,7 @@ import WeatherRow from '@/components/WeatherRow';
 import { formatSecondTimestamp } from '@/utils/common';
 import { isToday } from 'date-fns';
 import { FaSpinner } from 'react-icons/fa';
+import { SlideUpContainer } from '@/components/SlideUpContainer';
 
 type ForecastByDateProps = {
   forecastData: ForecastData | undefined;
@@ -43,26 +44,28 @@ const ForecastByDate: React.FC<ForecastByDateProps> = ({
         </div>
       ) : (
         forecastData && (
-          <div className="bg-white rounded-lg shadow-lg p-6 md:p-0 md:shadow-transparent md:bg-transparent">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {Object.entries(forecastGroupByDate).map(([date, items]) => {
-                const label = isToday(new Date(items[0].dt * 1000))
-                  ? 'Today'
-                  : date;
-                return (
-                  <div
-                    key={date}
-                    className="bg-transparent md:bg-white md:p-4 md:shadow-lg md:rounded-lg"
-                  >
-                    <span className="text-gray-500">{label}</span>
-                    {items.map((item: ForecastItem) => (
-                      <WeatherRow key={item.dt} {...item} />
-                    ))}
-                  </div>
-                );
-              })}
+          <SlideUpContainer>
+            <div className="bg-white rounded-lg shadow-lg p-6 md:p-0 md:shadow-transparent md:bg-transparent">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {Object.entries(forecastGroupByDate).map(([date, items]) => {
+                  const label = isToday(new Date(items[0].dt * 1000))
+                    ? 'Today'
+                    : date;
+                  return (
+                    <div
+                      key={date}
+                      className="bg-transparent md:bg-white md:p-4 md:shadow-lg md:rounded-lg"
+                    >
+                      <span className="text-gray-500">{label}</span>
+                      {items.map((item: ForecastItem) => (
+                        <WeatherRow key={item.dt} {...item} />
+                      ))}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-          </div>
+          </SlideUpContainer>
         )
       )}
     </>

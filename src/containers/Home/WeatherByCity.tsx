@@ -38,7 +38,7 @@ const WeatherByCity: React.FC = () => {
       ) : null}
 
       {forecastError ? (
-        <div className="bg-white rounded-lg p-6 shadow-lg text-red-500 text-center capitalize">
+        <div className="bg-white rounded-lg p-6 shadow-lg text-red-500 text-center">
           {forecastError.message}
         </div>
       ) : (
