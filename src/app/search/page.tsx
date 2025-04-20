@@ -1,7 +1,11 @@
-'use client';
-
 import SearchForm from '@/containers/Search/SearchForm';
 import SearchHistory from '@/containers/Search/SearchHistory';
+
+export async function generateMetadata() {
+  return {
+    title: `Weather App | Search`,
+  };
+}
 
 export default function SearchPage() {
   return (
