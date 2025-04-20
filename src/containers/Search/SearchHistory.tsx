@@ -3,6 +3,7 @@ import { useWeatherStore } from '@/store/weatherStore';
 import { useShallow } from 'zustand/react/shallow';
 import { LuSearch, LuTrash } from 'react-icons/lu';
 import { useRouter } from 'next/navigation';
+import Card from '@/components/Card';
 
 const SearchHistory = () => {
   const router = useRouter();
@@ -18,8 +19,7 @@ const SearchHistory = () => {
     router.push('/');
   };
 
-  const handleRemoveFromHistory = (event: React.MouseEvent, city: string) => {
-    event.stopPropagation();
+  const handleRemoveFromHistory = (city: string) => {
     removeFromHistory(city);
   };
 
@@ -28,12 +28,12 @@ const SearchHistory = () => {
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg text-gray-800 font-medium">Search History</h2>
       </div>
-      <div className=" bg-white text-black rounded-lg p-4 shadow-lg">
+      <Card>
         {searchHistory.length > 0 ? (
           searchHistory.map(({ city, countryCode }) => (
             <div
               key={`${city}-${countryCode}`}
-              className="flex items-center justify-between w-full px-4 py-2 text-left rounded-lg text-gray-900"
+              className="flex items-center justify-between w-full py-2 [&:last-child]:pb-0 [&:first-child]:pt-0 text-left rounded-lg text-gray-900"
             >
               {city}, {countryCode}
               <div className="flex gap-4">
@@ -43,7 +43,7 @@ const SearchHistory = () => {
                 />
                 <LuTrash
                   className="cursor-pointer"
-                  onClick={(event) => handleRemoveFromHistory(event, city)}
+                  onClick={() => handleRemoveFromHistory(city)}
                 />
               </div>
             </div>
@@ -53,7 +53,7 @@ const SearchHistory = () => {
             Empty Search History
           </div>
         )}
-      </div>
+      </Card>
     </div>
   );
 };

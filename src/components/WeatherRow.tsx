@@ -4,7 +4,7 @@ import { formatSecondTimestamp, getOpenWeatherIcon } from '@/utils/common';
 import Image from 'next/image';
 import { TIME_FORMAT } from '@/constants/common';
 
-type WeatherRowProps = ForecastItem;
+type WeatherRowProps = Pick<ForecastItem, 'dt' | 'main' | 'weather'>;
 
 const WeatherRow: React.FC<WeatherRowProps> = ({ dt, main, weather }) => {
   return (

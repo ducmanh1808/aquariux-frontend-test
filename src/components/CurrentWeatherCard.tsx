@@ -6,6 +6,7 @@ import { DATE_FORMAT } from '@/constants/common';
 import { FaLongArrowAltDown } from 'react-icons/fa';
 import { getOpenWeatherIcon, toKm } from '@/utils/common';
 import { SlideUpContainer } from '@/components/SlideUpContainer';
+import Card from '@/components/Card';
 
 type WeatherCardProps = Pick<
   WeatherData,
@@ -20,7 +21,7 @@ const CurrentWeatherCard: React.FC<WeatherCardProps> = ({
 }) => {
   return (
     <SlideUpContainer>
-      <div className="min-h-[240px] bg-white text-black rounded-lg p-6 shadow-lg">
+      <Card className="min-h-[240px]">
         <div className="text-left text-gray-500">
           <h6>{format(new Date(), DATE_FORMAT)}</h6>
         </div>
@@ -79,7 +80,7 @@ const CurrentWeatherCard: React.FC<WeatherCardProps> = ({
             </div>
           </div>
         </div>
-      </div>
+      </Card>
     </SlideUpContainer>
   );
 };
