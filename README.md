@@ -8,7 +8,6 @@ A modern weather application built with Next.js that displays current weather an
 - 5-day forecast with 3-hour intervals
 - Search functionality with history
 - Responsive design
-- Modern UI with loading states and error handling
 
 ## Tech Stack
 
@@ -24,7 +23,6 @@ A modern weather application built with Next.js that displays current weather an
 1. Clone the repository:
 ```bash
 git clone <repository-url>
-cd weather-app
 ```
 
 2. Install dependencies:
@@ -39,7 +37,6 @@ cp .env.example .env.local
 Then replace the placeholder with your OpenWeather API key:
 ```
 OPENWEATHER_API_KEY=your_api_key_here
-OPENWEATHER_API_URL=https://api.openweathermap.org/data/2.5
 ```
 
 > **Important**: 
@@ -58,42 +55,8 @@ npm run dev
 src/
 ├── app/                  # Next.js app router pages
 ├── components/          # React components
+├── container/          # Page containers
 ├── store/              # Zustand store configurations
 ├── types/              # TypeScript type definitions
 └── utils/              # Utility functions and API calls
 ```
-
-## Evaluation Criteria
-
-The project will be evaluated based on:
-
-1. **Feature Completeness**
-   - Current weather summary
-   - 5-day forecast by 3 hours
-   - Search & history functionality
-
-2. **Code Quality**
-   - Clean, maintainable code
-   - Proper TypeScript usage
-   - Component organization
-   - Error handling
-
-3. **UI/UX**
-   - Responsive design
-   - Loading states
-   - Error states
-   - User-friendly interface
-
-4. **Best Practices**
-   - API key security
-   - Performance optimization
-   - Code documentation
-   - Git commit history
-
-## API Rate Limits
-
-Please note that the free tier of OpenWeather API has rate limits. Refer to their [documentation](https://openweathermap.org/price) for more details.
-
-## License
-
-This project is part of a technical assessment and is not licensed for public use.
