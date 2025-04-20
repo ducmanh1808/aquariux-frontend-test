@@ -1,40 +1,28 @@
-import { useQuery } from '@tanstack/react-query';
 import { searchCities } from '@/utils/api';
-import { useState, useEffect } from 'react';
-import type { City } from '@/types/city';
+import { useMutation } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
 
-interface UseSearchCityReturn {
-  query: string;
-  setQuery: (value: string) => void;
-  suggestions: City[];
-  showSuggestions: boolean;
-  setShowSuggestions: (show: boolean) => void;
-  error: Error | null;
-  isLoading: boolean;
-  handleSearch: () => void;
-}
-
-export const useSearchCity = (): UseSearchCityReturn => {
+export const useSearchCity = () => {
   const [query, setQuery] = useState('');
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const [shouldSearch, setShouldSearch] = useState(false);
 
-  const { data: suggestions = [], error, isLoading } = useQuery({
-    queryKey: ['cities', query],
-    queryFn: () => searchCities(query),
-    enabled: shouldSearch && !!query.trim(),
+  const {
+    data: suggestions,
+    error,
+    isPending: isLoading,
+    mutate: mutateCity,
+  } = useMutation({
+    mutationKey: ['cities', query],
+    mutationFn: () => searchCities(query),
   });
 
   useEffect(() => {
-    if (suggestions.length > 0 && shouldSearch) {
-      setShowSuggestions(true);
-      setShouldSearch(false);
-    }
-  }, [suggestions, shouldSearch]);
+    if (suggestions) setShowSuggestions(true);
+  }, [suggestions]);
 
   const handleSearch = () => {
     if (!query.trim()) return;
-    setShouldSearch(true);
+    mutateCity();
   };
 
   return {
@@ -43,7 +31,6 @@ export const useSearchCity = (): UseSearchCityReturn => {
       setQuery(value);
       if (showSuggestions) {
         setShowSuggestions(false);
-        setShouldSearch(false);
       }
     },
     suggestions,

@@ -76,7 +76,7 @@ const SearchForm = () => {
 
       {error && <p className="text-red-500 mt-2">{error.message}</p>}
 
-      {showSuggestions && suggestions.length > 0 && (
+      {showSuggestions && (
         <CitySuggestions
           suggestions={suggestions}
           onSelectCity={handleSelectCity}

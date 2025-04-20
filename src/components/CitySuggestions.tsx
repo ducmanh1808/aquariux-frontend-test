@@ -2,7 +2,7 @@ import React from 'react';
 import type { City } from '@/types/city';
 
 interface CitySuggestionsProps {
-  suggestions: City[];
+  suggestions: City[] | undefined;
   onSelectCity: (city: City) => void;
   suggestionsRef: React.RefObject<HTMLDivElement | null>;
 }
@@ -12,7 +12,7 @@ const CitySuggestions = ({
   onSelectCity,
   suggestionsRef,
 }: CitySuggestionsProps) => {
-  return (
+  return !!suggestions?.length ? (
     <div
       ref={suggestionsRef}
       className="absolute z-10 w-full mt-1 bg-white border rounded-md shadow-lg max-h-60 overflow-auto"
@@ -28,7 +28,8 @@ const CitySuggestions = ({
         </button>
       ))}
     </div>
+  ) : (
+    <p className="text-red-500 mt-2">Invalid Country or City</p>
   );
 };
-
 export default CitySuggestions;
