@@ -53,8 +53,8 @@ npm run dev
 
 ```
 src/
-├── app/                  # Next.js app router pages
-├── components/          # React components
+├── app/                # Next.js app router pages
+├── components/         # React components
 ├── container/          # Page containers
 ├── store/              # Zustand store configurations
 ├── types/              # TypeScript type definitions
