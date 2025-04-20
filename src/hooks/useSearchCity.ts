@@ -1,40 +1,56 @@
-import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { searchCities } from '@/utils/api';
+import { useState, useEffect } from 'react';
 import type { City } from '@/types/city';
 
-export const useSearchCity = () => {
-  const [suggestions, setSuggestions] = useState<City[]>([]);
-  const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+interface UseSearchCityReturn {
+  query: string;
+  setQuery: (value: string) => void;
+  suggestions: City[];
+  showSuggestions: boolean;
+  setShowSuggestions: (show: boolean) => void;
+  error: Error | null;
+  isLoading: boolean;
+  handleSearch: () => void;
+}
 
-  const searchCity = async (query: string) => {
-    if (!query.trim()) return;
+export const useSearchCity = (): UseSearchCityReturn => {
+  const [query, setQuery] = useState('');
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [shouldSearch, setShouldSearch] = useState(false);
 
-    try {
-      setIsLoading(true);
-      setError('');
-      const cities = await searchCities(query);
+  const { data: suggestions = [], error, isLoading } = useQuery({
+    queryKey: ['cities', query],
+    queryFn: () => searchCities(query),
+    enabled: shouldSearch && !!query.trim(),
+  });
 
-      if (cities.length === 0) {
-        setError('Invalid country or city');
-        setSuggestions([]);
-        return;
-      }
-
-      setSuggestions(cities);
-      return cities;
-    } catch {
-      setError('Failed to fetch suggestions');
-      setSuggestions([]);
-    } finally {
-      setIsLoading(false);
+  useEffect(() => {
+    if (suggestions.length > 0 && shouldSearch) {
+      setShowSuggestions(true);
+      setShouldSearch(false);
     }
+  }, [suggestions, shouldSearch]);
+
+  const handleSearch = () => {
+    if (!query.trim()) return;
+    setShouldSearch(true);
   };
 
   return {
+    query,
+    setQuery: (value: string) => {
+      setQuery(value);
+      if (showSuggestions) {
+        setShowSuggestions(false);
+        setShouldSearch(false);
+      }
+    },
     suggestions,
+    showSuggestions,
+    setShowSuggestions,
     error,
     isLoading,
-    searchCity,
+    handleSearch,
   };
 };

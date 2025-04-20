@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, useEffect, useRef } from 'react';
 import type { City } from '@/types/city';
 import { useSearchCity } from '@/hooks/useSearchCity';
 import { useWeatherStore } from '@/store/weatherStore';
@@ -9,10 +9,17 @@ import CitySuggestions from '@/components/CitySuggestions';
 
 const SearchForm = () => {
   const router = useRouter();
-  const [query, setQuery] = useState('');
-  const [showSuggestions, setShowSuggestions] = useState(false);
   const suggestionsRef = useRef<HTMLDivElement>(null);
-  const { suggestions, error, isLoading, searchCity } = useSearchCity();
+  const {
+    query,
+    setQuery,
+    suggestions,
+    showSuggestions,
+    setShowSuggestions,
+    error,
+    isLoading,
+    handleSearch,
+  } = useSearchCity();
   const { setCity, addToHistory } = useWeatherStore();
 
   // Close suggestions when clicking outside
@@ -31,17 +38,12 @@ const SearchForm = () => {
   }, []);
 
   const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setQuery(event.target.value);
-  };
-
-  const handleSearch = async () => {
-    if (!query.trim()) return;
-    await searchCity(query);
-    setShowSuggestions(true);
+    const value = event.target.value;
+    setQuery(value);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && query.trim()) {
       handleSearch();
     }
   };
@@ -72,7 +74,7 @@ const SearchForm = () => {
         </button>
       </div>
 
-      {error && <p className="text-red-500 mt-2">{error}</p>}
+      {error && <p className="text-red-500 mt-2">{error.message}</p>}
 
       {showSuggestions && suggestions.length > 0 && (
         <CitySuggestions
