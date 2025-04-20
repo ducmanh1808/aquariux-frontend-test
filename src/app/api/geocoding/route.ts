@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { API_KEY, GEO_URL } from '@/constants';
+import { API_KEY, GEO_URL } from '@/constants/common';
 import { WeatherAPIError } from '@/types/api';
 
 export async function GET(request: NextRequest) {
@@ -8,16 +8,22 @@ export async function GET(request: NextRequest) {
   const limit = searchParams.get('limit') || '5';
 
   if (!API_KEY) {
-    return NextResponse.json({ error: 'API key not configured' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'API key not configured' },
+      { status: 500 },
+    );
   }
 
   if (!query) {
-    return NextResponse.json({ error: 'Query parameter is required' }, { status: 400 });
+    return NextResponse.json(
+      { error: 'Query parameter is required' },
+      { status: 400 },
+    );
   }
 
   try {
     const response = await fetch(
-      `${GEO_URL}/direct?q=${encodeURIComponent(query)}&limit=${limit}&appid=${API_KEY}`
+      `${GEO_URL}/direct?q=${encodeURIComponent(query)}&limit=${limit}&appid=${API_KEY}`,
     );
 
     if (!response.ok) {
@@ -25,7 +31,7 @@ export async function GET(request: NextRequest) {
 
       throw {
         message: errorBody?.message || 'Failed to fetch geocoding data',
-        status: response.status
+        status: response.status,
       } as WeatherAPIError;
     }
 
@@ -35,7 +41,7 @@ export async function GET(request: NextRequest) {
     const apiError = error as WeatherAPIError;
     return NextResponse.json(
       { error: apiError.message || 'Failed to fetch geocoding data' },
-      { status: apiError.status || 500 }
+      { status: apiError.status || 500 },
     );
   }
-} 
+}

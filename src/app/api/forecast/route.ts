@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { API_KEY, API_URL } from '@/constants';
+import { API_KEY, API_URL } from '@/constants/common';
 import { WeatherAPIError } from '@/types/api';
 
 export async function GET(request: NextRequest) {

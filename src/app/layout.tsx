@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <QueryProvider>
-          <main className="min-h-screen bg-gradient-to-br from-blue-100 to-blue-300 p-8 pt-18">
+          <main className="min-h-screen bg-gradient-to-br from-blue-100 to-blue-300 px-2 md:px-8 pt-16 pb-4">
             <Navbar />
             {children}
           </main>

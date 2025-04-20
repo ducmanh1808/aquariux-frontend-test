@@ -2,7 +2,7 @@ import React from 'react';
 import { ForecastItem } from '@/types/weather';
 import { formatSecondTimestamp, getOpenWeatherIcon } from '@/utils/common';
 import Image from 'next/image';
-import { TIME_FORMAT } from '@/constants';
+import { TIME_FORMAT } from '@/constants/common';
 
 type WeatherRowProps = ForecastItem;
 

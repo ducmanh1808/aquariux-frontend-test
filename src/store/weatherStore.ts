@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { SearchHistory } from '@/types/weather';
-import { DEFAULT_CITY, DEFAULT_COUNTRY_CODE } from '@/constants';
+import { DEFAULT_CITY, DEFAULT_COUNTRY_CODE } from '@/constants/common';
 
 interface WeatherStore {
   searchHistory: SearchHistory[];

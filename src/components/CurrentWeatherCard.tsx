@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { WeatherData } from '@/types/weather';
 import { format } from 'date-fns';
-import { DATE_FORMAT } from '@/constants';
+import { DATE_FORMAT } from '@/constants/common';
 import { FaLongArrowAltDown } from 'react-icons/fa';
 import { getOpenWeatherIcon, toKm } from '@/utils/common';
 

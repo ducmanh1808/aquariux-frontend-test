@@ -1,4 +1,4 @@
-import { DATE_FORMAT, ICON_URL } from '@/constants';
+import { DATE_FORMAT, ICON_URL } from '@/constants/common';
 import { format } from 'date-fns';
 
 export const getOpenWeatherIcon = (icon: string, scale?: string) =>
